@@ -1,36 +1,43 @@
-import Bookmark from "./bookmark"
-import Qualitie from "./qualitie"
+import React from 'react'
+import Bookmark from './bookmark'
+import Qualitie from './qualitie'
+import PropTypes from 'prop-types'
 
-const User = (props) => {
-  // console.log(props.onToggleBookmark)
+const User = ({ user, onDelete, onToggleBookmark }) => {
   return (
     <tr>
-      <td>{props.user.name}</td>
+      <td>{user.name}</td>
       <td>
-        {props.user.qualities.map((qualitie) => (
+        {user.qualities.map((qualitie) => (
           <Qualitie key={qualitie._id} {...qualitie} />
         ))}
       </td>
-      <td>{props.user.profession.name}</td>
-      <td>{props.user.completedMeetings}</td>
-      <td>{props.user.rate}</td>
+      <td>{user.profession.name}</td>
+      <td>{user.completedMeetings}</td>
+      <td>{user.rate}</td>
       <td>
         <Bookmark
-          status={props.user.bookmark}
-          onToggleBookmark={props.onToggleBookmark}
-          id={props.user._id}
+          status={user.bookmark}
+          onToggleBookmark={onToggleBookmark}
+          id={user._id}
         />
       </td>
       <td>
         <button
-          className='btn btn-danger m-0'
-          onClick={() => props.onDelete(props.user._id)}
+          className="btn btn-danger m-0"
+          onClick={() => onDelete(user._id)}
         >
           delete
         </button>
       </td>
     </tr>
   )
+}
+
+User.propTypes = {
+  user: PropTypes.object.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onToggleBookmark: PropTypes.func.isRequired
 }
 
 export default User
