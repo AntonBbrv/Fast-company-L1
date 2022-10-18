@@ -1,12 +1,6 @@
-const professions = {
-  doctor: { _id: '67rdca3eeb7f6fgeed471818', name: 'Доктор' },
-  waiter: { _id: '67rdca3eeb7f6fgeed471820', name: 'Официант' },
-  physics: { _id: '67rdca3eeb7f6fgeed471814', name: 'Физик' },
-  engineer: { _id: '67rdca3eeb7f6fgeed471822', name: 'Инженер' },
-  actor: { _id: '67rdca3eeb7f6fgeed471824', name: 'Актер' },
-  cook: { _id: '67rdca3eeb7f6fgeed471829', name: 'Повар' }
-}
-const qualities = {
+import { professionsObject as professions } from './professions.api'
+
+export const qualities = {
   tedious: {
     _id: '67rdca3eeb7f6fgeed471198',
     name: 'Нудила',
@@ -17,7 +11,11 @@ const qualities = {
     name: 'Странный',
     color: 'secondary'
   },
-  buller: { _id: '67rdca3eeb7f6fgeed4711012', name: 'Троль', color: 'success' },
+  buller: {
+    _id: '67rdca3eeb7f6fgeed4711012',
+    name: 'Троль',
+    color: 'success'
+  },
   alcoholic: {
     _id: '67rdca3eeb7f6fgeed471101',
     name: 'Алкоголик',
@@ -35,7 +33,7 @@ const qualities = {
   }
 }
 
-const users = [
+export const users = [
   {
     _id: '67rdca3eeb7f6fgeed471815',
     name: 'Джон Дориан',
@@ -43,7 +41,7 @@ const users = [
     qualities: [qualities.tedious, qualities.uncertain, qualities.strange],
     completedMeetings: 36,
     rate: 2.5,
-    bookmark: false
+    bookmark: true
   },
   {
     _id: '67rdca3eeb7f6fgeed471816',
@@ -70,7 +68,7 @@ const users = [
     qualities: [qualities.uncertain],
     completedMeetings: 148,
     rate: 3.5,
-    bookmark: true
+    bookmark: false
   },
   {
     _id: '67rdca3eeb7f6fgeed471819',
@@ -146,6 +144,13 @@ const users = [
   }
 ]
 
-export function fetchAll() {
-  return users
+const fetchAll = () =>
+  new Promise((resolve) => {
+    window.setTimeout(function () {
+      resolve(users)
+    }, 2000)
+  })
+
+export default {
+  fetchAll
 }
