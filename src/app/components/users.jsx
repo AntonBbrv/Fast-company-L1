@@ -7,16 +7,16 @@ import GroupList from './groupList'
 import API from '../api'
 import SearchStatus from './searchStatus'
 
-const Users = ({ onDelete, onToggleBookmark }) => {
+const Users = ({ users, onDelete, onToggleBookmark }) => {
   const pageSize = 2
   const [currentPage, setCurrentPage] = useState(1)
   const [professions, setProfessions] = useState()
   const [selectedProf, setSelectedProf] = useState()
-  const [users, setUsers] = useState()
+  // const [users, setUsers] = useState()
 
-  useEffect(() => {
-    API.users.fetchAll().then((data) => setUsers(data))
-  }, [])
+  // useEffect(() => {
+  //   API.users.fetchAll().then((data) => setUsers(data))
+  // }, [])
 
   useEffect(() => {
     API.professions.fetchAll().then((data) => setProfessions(data))
@@ -37,14 +37,16 @@ const Users = ({ onDelete, onToggleBookmark }) => {
   const clearFilter = () => {
     setSelectedProf()
   }
-  console.log(selectedProf)
 
   if (users && users.length !== 0) {
     const filteredUsers = selectedProf
-      ? users.filter((user) => user.profession === selectedProf)
+      ? users.filter(
+          (user) =>
+            JSON.stringify(user.profession) === JSON.stringify(selectedProf)
+        )
       : users
-    const count = filteredUsers.length
 
+    const count = filteredUsers.length
     const userCrop = paginate(filteredUsers, currentPage, pageSize)
     return (
       <div className="d-flex">

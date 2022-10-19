@@ -10,7 +10,6 @@ const App = () => {
   }, [])
 
   const handleDelUsers = (id) => {
-    console.log(id)
     setUsers(users.filter((user) => user._id !== id))
   }
 
@@ -28,7 +27,7 @@ const App = () => {
   return (
     <div>
       <Users
-        // users={users}
+        users={users}
         onDelete={handleDelUsers}
         onToggleBookmark={handlToggleBookmark}
       />
