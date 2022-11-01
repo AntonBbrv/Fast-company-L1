@@ -13,7 +13,7 @@ const Users = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [professions, setProfessions] = useState()
   const [selectedProf, setSelectedProf] = useState()
-  const [sortBy, setSortBy] = useState({ iterator: 'name', order: 'asc' })
+  const [sortBy, setSortBy] = useState({ path: 'name', order: 'asc' })
 
   const [users, setUsers] = useState()
 
@@ -107,6 +107,8 @@ const Users = () => {
         </div>
       </div>
     )
+  } else {
+    return <span>loading...</span>
   }
 }
 
