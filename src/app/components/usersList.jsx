@@ -6,14 +6,16 @@ import GroupList from './groupList'
 import API from '../api'
 import SearchStatus from './searchStatus'
 import UsersTable from './usersTable'
+import Search from './search'
 import _ from 'lodash'
 
-const Users = () => {
+const UsersList = () => {
   const pageSize = 8
   const [currentPage, setCurrentPage] = useState(1)
   const [professions, setProfessions] = useState()
   const [selectedProf, setSelectedProf] = useState()
   const [sortBy, setSortBy] = useState({ path: 'name', order: 'asc' })
+  const [searchData, setSearchData] = useState('')
 
   const [users, setUsers] = useState()
 
@@ -42,6 +44,7 @@ const Users = () => {
 
   useEffect(() => {
     setCurrentPage(1)
+    setSearchData('')
   }, [selectedProf])
 
   const handlePageChange = (pageIndex) => {
@@ -60,7 +63,17 @@ const Users = () => {
     setSortBy(item)
   }
 
+  // search
+  const handleSearchChange = ({ target }) => {
+    setSearchData(target.value)
+  }
+  // search
+
   if (users && users.length !== 0) {
+    const searchedUsers = users.filter((user) =>
+      user.name.toLowerCase().includes(searchData.toLowerCase())
+    )
+
     const filteredUsers = selectedProf
       ? users.filter(
           (user) =>
@@ -68,7 +81,7 @@ const Users = () => {
         )
       : users
 
-    const count = filteredUsers.length
+    const count = searchData ? searchedUsers.length : filteredUsers.length
 
     const sortedUsers = _.orderBy(filteredUsers, [sortBy.path], [sortBy.order])
 
@@ -89,8 +102,9 @@ const Users = () => {
         )}
         <div className="d-flex flex-column">
           <SearchStatus length={count} />
+          <Search value={searchData} onChange={handleSearchChange} />
           <UsersTable
-            userCrop={userCrop}
+            userCrop={searchData ? searchedUsers : userCrop}
             onSort={handleSort}
             selectedSort={sortBy}
             onDelete={handleDelUsers}
@@ -112,9 +126,9 @@ const Users = () => {
   }
 }
 
-Users.propTypes = {
+UsersList.propTypes = {
   users: PropTypes.array,
   onDelete: PropTypes.func,
   onToggleBookmark: PropTypes.func
 }
-export default Users
+export default UsersList

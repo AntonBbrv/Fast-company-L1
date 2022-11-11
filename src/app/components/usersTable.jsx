@@ -1,4 +1,4 @@
-import React from 'react'
+import { React } from 'react'
 import PropTypes from 'prop-types'
 // import TableHeader from './tableHeader'
 // import TableBody from './tableBody'
@@ -12,8 +12,7 @@ const UsersTable = ({
   onSort,
   selectedSort,
   onToggleBookmark,
-  onDelete,
-  ...rest
+  onDelete
 }) => {
   const columns = {
     name: {
@@ -55,15 +54,17 @@ const UsersTable = ({
   }
 
   return (
-    <Table
-      onSort={onSort}
-      selectedSort={selectedSort}
-      columns={columns}
-      data={userCrop}
-    >
-      {/* <TableHeader {...{ onSort, selectedSort, columns }} />
+    <>
+      <Table
+        onSort={onSort}
+        selectedSort={selectedSort}
+        columns={columns}
+        data={userCrop}
+      >
+        {/* <TableHeader {...{ onSort, selectedSort, columns }} />
       <TableBody {...{ columns, data: userCrop }} /> */}
-    </Table>
+      </Table>
+    </>
   )
 }
 

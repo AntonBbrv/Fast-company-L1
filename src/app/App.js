@@ -1,11 +1,9 @@
 import { React } from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 import NavBar from './components/navBar'
-import Users from './components/users'
-import Main from './components/Pages/main'
-import Login from './components/Pages/login'
-import userPage from './components/Pages/userPage'
-
+import Main from './components/layouts/main'
+import Login from './components/layouts/login'
+import Users from './components/layouts/users'
 const App = () => {
   return (
     <>
@@ -13,8 +11,8 @@ const App = () => {
       <Switch>
         <Route path="/" exact component={Main} />
         <Route path="/login" component={Login} />
-        <Route path="/users/:userId" component={userPage} />
-        <Route path="/users" component={Users} />
+        <Route path="/users/:userId?" component={Users} />
+        <Redirect to="/" />
       </Switch>
     </>
   )
