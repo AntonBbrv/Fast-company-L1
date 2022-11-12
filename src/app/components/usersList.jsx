@@ -44,7 +44,6 @@ const UsersList = () => {
 
   useEffect(() => {
     setCurrentPage(1)
-    setSearchData('')
   }, [selectedProf])
 
   const handlePageChange = (pageIndex) => {
@@ -52,6 +51,7 @@ const UsersList = () => {
   }
 
   const handleProfessionSelect = (item) => {
+    if (searchData !== '') setSearchData('')
     setSelectedProf(item)
   }
 
@@ -66,22 +66,27 @@ const UsersList = () => {
   // search
   const handleSearchChange = ({ target }) => {
     setSearchData(target.value)
+    setSelectedProf(undefined)
   }
   // search
 
   if (users && users.length !== 0) {
-    const searchedUsers = users.filter((user) =>
-      user.name.toLowerCase().includes(searchData.toLowerCase())
-    )
+    // const searchedUsers = users.filter((user) =>
+    //   user.name.toLowerCase().includes(searchData.toLowerCase())
+    // )
 
-    const filteredUsers = selectedProf
+    const filteredUsers = searchData
+      ? users.filter((user) =>
+          user.name.toLowerCase().includes(searchData.toLowerCase())
+        )
+      : selectedProf
       ? users.filter(
           (user) =>
             JSON.stringify(user.profession) === JSON.stringify(selectedProf)
         )
       : users
 
-    const count = searchData ? searchedUsers.length : filteredUsers.length
+    const count = filteredUsers.length
 
     const sortedUsers = _.orderBy(filteredUsers, [sortBy.path], [sortBy.order])
 
@@ -104,7 +109,7 @@ const UsersList = () => {
           <SearchStatus length={count} />
           <Search value={searchData} onChange={handleSearchChange} />
           <UsersTable
-            userCrop={searchData ? searchedUsers : userCrop}
+            userCrop={userCrop}
             onSort={handleSort}
             selectedSort={sortBy}
             onDelete={handleDelUsers}
