@@ -1,1 +1,1 @@
-Домашнее задание по курсу Fronend Developer, модуль Frontend (React)
+Домашнее задание по курсу Frontend Developer, модуль Frontend (React)
