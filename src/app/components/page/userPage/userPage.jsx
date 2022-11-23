@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import api from '../api'
-import QualitiesList from './qualitiesList'
+import api from '../../../api'
+import QualitiesList from '../../ui/qualities/qualitiesList'
 import { useHistory } from 'react-router-dom'
 
 const UserPage = ({ userId }) => {
@@ -10,9 +10,10 @@ const UserPage = ({ userId }) => {
 
   useEffect(() => {
     api.users.getById(userId).then((data) => setUser(data))
-  })
+  }, [])
+
   const handleClick = () => {
-    history.push('/users')
+    history.push(`/users/${userId}/edit`)
   }
 
   if (user) {
@@ -23,7 +24,7 @@ const UserPage = ({ userId }) => {
         <QualitiesList qualities={user.qualities} />
         <p>completedMeetings: {user.completedMeetings}</p>
         <h2>Rate: {user.rate}</h2>
-        <button onClick={handleClick}> Все Пользователи</button>
+        <button onClick={handleClick}>Изменить</button>
       </div>
     )
   } else {

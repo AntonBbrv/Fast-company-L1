@@ -1,15 +1,15 @@
 import { React, useState, useEffect } from 'react'
-import Pagination from './pagination'
-import { paginate } from '../utils/paginate'
+import Pagination from '../../common/pagination'
+import { paginate } from '../../../utils/paginate'
 import PropTypes from 'prop-types'
-import GroupList from './groupList'
-import API from '../api'
-import SearchStatus from './searchStatus'
-import UsersTable from './usersTable'
-import Search from './search'
+import GroupList from '../../common/groupList'
+import API from '../../../api'
+import SearchStatus from '../../ui/searchStatus'
+import UsersTable from '../../ui/usersTable'
+import Search from '../../common/form/search'
 import _ from 'lodash'
 
-const UsersList = () => {
+const UsersListPage = () => {
   const pageSize = 8
   const [currentPage, setCurrentPage] = useState(1)
   const [professions, setProfessions] = useState()
@@ -131,9 +131,9 @@ const UsersList = () => {
   }
 }
 
-UsersList.propTypes = {
+UsersListPage.propTypes = {
   users: PropTypes.array,
   onDelete: PropTypes.func,
   onToggleBookmark: PropTypes.func
 }
-export default UsersList
+export default UsersListPage
