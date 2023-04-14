@@ -1,6 +1,5 @@
 import { professionsObject as professions } from './professions.api'
-
-export const qualities = {
+const qualities = {
   tedious: {
     _id: '67rdca3eeb7f6fgeed471198',
     name: 'Нудила',
@@ -177,7 +176,6 @@ const fetchAll = () =>
       resolve(JSON.parse(localStorage.getItem('users')))
     }, 2000)
   })
-
 const update = (id, data) =>
   new Promise((resolve) => {
     const users = JSON.parse(localStorage.getItem('users'))

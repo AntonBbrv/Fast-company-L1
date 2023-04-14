@@ -4,7 +4,7 @@ import NavBar from './components/ui/navBar'
 import Main from './layouts/main'
 import Login from './layouts/login'
 import Users from './layouts/users'
-import EditUserPage from './components/page/userPage/editUserPage'
+import EditUserPage from './components/page/editUserPage/editUserPage'
 
 const App = () => {
   return (

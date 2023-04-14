@@ -1,16 +1,18 @@
-import { React } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import Bookmark from '../common/bookmark'
+
+import BookMark from '../common/bookmark'
 import Qualities from './qualities'
-import Table from '../common/table/table'
+import Table from '../common/table'
 import { Link } from 'react-router-dom'
 
-const UsersTable = ({
-  userCrop,
+const UserTable = ({
+  users,
   onSort,
   selectedSort,
-  onToggleBookmark,
-  onDelete
+  onToggleBookMark,
+  onDelete,
+  ...rest
 }) => {
   const columns = {
     name: {
@@ -22,7 +24,7 @@ const UsersTable = ({
       name: 'Качества',
       component: (user) => <Qualities qualities={user.qualities} />
     },
-    profession: { path: 'profession.name', name: 'Профессия' },
+    professions: { path: 'profession.name', name: 'Профессия' },
     completedMeetings: {
       path: 'completedMeetings',
       name: 'Встретился, раз'
@@ -32,43 +34,36 @@ const UsersTable = ({
       path: 'bookmark',
       name: 'Избранное',
       component: (user) => (
-        <Bookmark
+        <BookMark
           status={user.bookmark}
-          onToggleBookmark={onToggleBookmark}
-          id={user._id}
+          onClick={() => onToggleBookMark(user._id)}
         />
       )
     },
     delete: {
       component: (user) => (
-        <button
-          className="btn btn-danger m-0"
-          onClick={() => onDelete(user._id)}
-        >
+        <button onClick={() => onDelete(user._id)} className="btn btn-danger">
           delete
         </button>
       )
     }
   }
-
   return (
-    <>
-      <Table
-        onSort={onSort}
-        selectedSort={selectedSort}
-        columns={columns}
-        data={userCrop}
-      ></Table>
-    </>
+    <Table
+      onSort={onSort}
+      selectedSort={selectedSort}
+      columns={columns}
+      data={users}
+    />
   )
 }
 
-UsersTable.propTypes = {
-  userCrop: PropTypes.array,
-  onSort: PropTypes.func,
-  onDelete: PropTypes.func,
-  onToggleBookmark: PropTypes.func,
-  selectedSort: PropTypes.object.isRequired
+UserTable.propTypes = {
+  users: PropTypes.array.isRequired,
+  onSort: PropTypes.func.isRequired,
+  selectedSort: PropTypes.object.isRequired,
+  onToggleBookMark: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired
 }
 
-export default UsersTable
+export default UserTable
